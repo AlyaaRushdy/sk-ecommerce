@@ -51,6 +51,10 @@ export default {
           5: "hsl(var(--chart-5))",
         },
       },
+      gridTemplateColumns: {
+        // Complex site-specific column configuration
+        cart: "minmax(80px, 1fr) minmax(0, 2fr)",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
