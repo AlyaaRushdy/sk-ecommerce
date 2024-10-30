@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
@@ -10,6 +11,7 @@ import {
 import { User, Search, ShoppingBasket } from "lucide-react";
 import NavSheet from "./NavSheet";
 import ModeToggle from "./modeToggle";
+import { openSheet } from "@/slices/cartSheetSlice";
 
 const links = [
   {
@@ -32,6 +34,7 @@ const links = [
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -92,7 +95,12 @@ function Navbar() {
             </NavigationMenuItem>
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
-                <Link className="hover:text-primary font-medium">
+                <Link
+                  className="hover:text-primary font-medium"
+                  onClick={() => {
+                    dispatch(openSheet());
+                  }}
+                >
                   <ShoppingBasket />
                 </Link>
               </NavigationMenuLink>

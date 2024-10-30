@@ -6,16 +6,22 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import CartItem from "../cart/CartItem";
 import EmptyCart from "../cart/emptyCart";
 import { ScrollArea } from "../ui/scroll-area";
+import { useDispatch, useSelector } from "react-redux";
+import { closeSheet } from "@/slices/cartSheetSlice";
+import { useNavigate } from "react-router-dom";
 
 function Cart() {
   const [products, setProducts] = useState([]);
+  const { isOpen } = useSelector((state) => state.cartSheet);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   useEffect(() => {
     axios
       .get("http://localhost:5000/products/")
@@ -30,10 +36,12 @@ function Cart() {
 
   return (
     <>
-      <Sheet>
-        <SheetTrigger asChild>
-          <Button variant="outline">Cart</Button>
-        </SheetTrigger>
+      <Sheet
+        open={isOpen}
+        onOpenChange={() => {
+          dispatch(closeSheet());
+        }}
+      >
         <SheetContent className="w-11/12 max-w-96 px-0 flex flex-col gap-0">
           <SheetHeader className="border-b text-left px-4 sm:px-6 pb-2">
             <SheetTitle>CART</SheetTitle>
@@ -55,7 +63,14 @@ function Cart() {
               </ScrollArea>
               <SheetFooter className={"px-4 sm:px-6"}>
                 <SheetClose asChild>
-                  <Button className={"sm:w-full"}>Check Out</Button>
+                  <Button
+                    className={"sm:w-full"}
+                    onClick={() => {
+                      navigate("/checkout");
+                    }}
+                  >
+                    Check Out
+                  </Button>
                 </SheetClose>
               </SheetFooter>
             </>
