@@ -52,8 +52,8 @@ export default {
         },
       },
       gridTemplateColumns: {
-        // Complex site-specific column configuration
         cart: "minmax(80px, 1fr) minmax(0, 2fr)",
+        navbar: "minmax(0, 1fr) 64px minmax(0, 1fr)",
       },
     },
   },

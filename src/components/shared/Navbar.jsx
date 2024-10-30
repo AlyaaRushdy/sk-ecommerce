@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -5,7 +8,6 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
 import { User, Search, ShoppingBasket } from "lucide-react";
-import { Link } from "react-router-dom";
 import NavSheet from "./NavSheet";
 
 const links = [
@@ -28,22 +30,25 @@ const links = [
 ];
 
 function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <>
-      <NavigationMenu>
-        <div className="w-screen py-4 px-4 sm:px-8 md:px-12 grid grid-cols-3 sm:flex sm:justify-start items-center [&>div]:contents">
+      <NavigationMenu
+        className={cn(
+          "sticky top-0 left-0 right-0 transition-all duration-200 ease-in-out",
+          scrolled ? "bg-background border-b" : "bg-transparent"
+        )}
+      >
+        <div className="w-screen py-4 px-4 sm:px-8 lg:px-12 grid grid-cols-navbar items-center [&>div]:contents">
           <NavSheet />
-          <NavigationMenuLink className="justify-self-center" asChild>
-            <Link to={"/"}>
-              <img
-                src="/src/assets/logo.png"
-                alt="sk logo"
-                className="w-16 mr-4"
-              />
-            </Link>
-          </NavigationMenuLink>
-
-          <NavigationMenuList className="ml-2 gap-4 flex-auto justify-start hidden sm:flex">
+          <NavigationMenuList className="ml-2 gap-4 flex-auto justify-start hidden md:flex">
             {links.map((link, index) => (
               <NavigationMenuItem key={index}>
                 <NavigationMenuLink asChild>
@@ -57,7 +62,16 @@ function Navbar() {
               </NavigationMenuItem>
             ))}
           </NavigationMenuList>
-          <NavigationMenuList className="gap-2 sm:gap-4 flex-auto justify-end">
+          <NavigationMenuLink className="justify-self-center" asChild>
+            <Link to={"/"}>
+              <img
+                src="/src/assets/logo.png"
+                alt="sk logo"
+                className="w-full"
+              />
+            </Link>
+          </NavigationMenuLink>
+          <NavigationMenuList className=" gap-2 sm:gap-4 flex-auto justify-end">
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link
