@@ -7,39 +7,36 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import axios from "axios";
-import { useEffect, useState } from "react";
 import CartItem from "../cart/CartItem";
 import EmptyCart from "../cart/emptyCart";
 import { ScrollArea } from "../ui/scroll-area";
 import { useDispatch, useSelector } from "react-redux";
-import { closeSheet } from "@/slices/cartSheetSlice";
 import { useNavigate } from "react-router-dom";
+import { closeCart } from "@/slices/cartSlice";
 
 function Cart() {
-  const [products, setProducts] = useState([]);
-  const { isOpen } = useSelector((state) => state.cartSheet);
+  const { isOpen, products } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/products/")
-      .then((res) => res.data)
-      .then((res) => {
-        setProducts(res.products);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:5000/products/")
+  //     .then((res) => res.data)
+  //     .then((res) => {
+  //       setProducts(res.products);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
 
   return (
     <>
       <Sheet
         open={isOpen}
         onOpenChange={() => {
-          dispatch(closeSheet());
+          dispatch(closeCart());
         }}
       >
         <SheetContent className="w-11/12 max-w-96 px-0 flex flex-col gap-0">

@@ -11,7 +11,7 @@ import {
 import { User, Search, ShoppingBasket } from "lucide-react";
 import NavSheet from "./NavSheet";
 import ModeToggle from "./modeToggle";
-import { openSheet } from "@/slices/cartSheetSlice";
+import { openCart } from "@/slices/cartSlice";
 
 const links = [
   {
@@ -98,7 +98,7 @@ function Navbar() {
                 <Link
                   className="hover:text-primary font-medium"
                   onClick={() => {
-                    dispatch(openSheet());
+                    dispatch(openCart());
                   }}
                 >
                   <ShoppingBasket />
