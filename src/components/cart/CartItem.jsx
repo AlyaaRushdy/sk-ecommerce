@@ -28,13 +28,20 @@ function CartItem({ product, isLast }) {
         <div>
           <p className="font-bold">{product.title}</p>
           <p>{`${product.volume} - ${product.scent}`}</p>
-          <p className="">
-            {priceAfterDiscount(product.basePrice, product.discountPercentage)}{" "}
-            EGP
-            <span className="ms-1 text-sm text-red-400 line-through">
-              {product.basePrice} EGP
-            </span>
-          </p>
+          {product.discountPercentage > 0 ? (
+            <p>
+              {priceAfterDiscount(
+                product.basePrice,
+                product.discountPercentage
+              )}{" "}
+              EGP
+              <span className="ms-1 text-sm text-red-400 line-through">
+                {product.basePrice} EGP
+              </span>
+            </p>
+          ) : (
+            <p>{product.basePrice}</p>
+          )}
           <div className="flex flex-row gap-1 justify-between items-center pt-2">
             <div className="p-1 border flex gap-1 justify-center items-center">
               <Button
