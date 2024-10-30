@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { User, Search, ShoppingBasket } from "lucide-react";
 import NavSheet from "./NavSheet";
+import ModeToggle from "./modeToggle";
 
 const links = [
   {
@@ -71,8 +72,8 @@ function Navbar() {
               />
             </Link>
           </NavigationMenuLink>
-          <NavigationMenuList className=" gap-2 sm:gap-4 flex-auto justify-end">
-            <NavigationMenuItem>
+          <NavigationMenuList className="gap-2 sm:gap-4 flex-auto justify-end">
+            <NavigationMenuItem className="hidden md:block">
               <NavigationMenuLink asChild>
                 <Link
                   to={"/account"}
@@ -95,6 +96,9 @@ function Navbar() {
                   <ShoppingBasket />
                 </Link>
               </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <ModeToggle />
             </NavigationMenuItem>
           </NavigationMenuList>
         </div>

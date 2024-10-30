@@ -31,6 +31,10 @@ const links = [
     title: "Contact",
     url: "/contact",
   },
+  {
+    title: "Account",
+    url: "/account",
+  },
 ];
 
 function NavSheet() {
@@ -38,12 +42,16 @@ function NavSheet() {
     <>
       <Sheet>
         <SheetTrigger asChild>
-          <Button size="icon" variant="outline" className="sm:hidden bg-transparent">
+          <Button
+            size="icon"
+            variant="ghost"
+            className="md:hidden bg-transparent"
+          >
             <Menu />
             <span className="sr-only">Toggle Menu</span>
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="sm:max-w-xs">
+        <SheetContent side="left" className="max-w-xs sm:max-w-xs">
           <SheetTitle asChild>
             <span className="sr-only">Navigation Menu</span>
           </SheetTitle>
