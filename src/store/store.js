@@ -13,22 +13,33 @@ import storage from "redux-persist/lib/storage";
 
 import modeReducer from "../slices/modeSlice";
 import userReducer from "../slices/userSlice";
-import cartSheetReducer from "../slices/cartSheetSlice";
+import cartReducer from "../slices/cartSlice";
 
-const persistConfig = {
-  key: "root",
+const userPersistConfig = {
+  key: "user",
+  version: 1,
+  storage,
+};
+const modePersistConfig = {
+  key: "theme",
+  version: 1,
+  storage,
+};
+const cartPersistConfig = {
+  key: "cart",
   version: 1,
   storage,
 };
 
-const persistUserReducer = persistReducer(persistConfig, userReducer);
-const persistModeReducer = persistReducer(persistConfig, modeReducer);
+const persistUserReducer = persistReducer(userPersistConfig, userReducer);
+const persistModeReducer = persistReducer(modePersistConfig, modeReducer);
+const persistCartReducer = persistReducer(cartPersistConfig, cartReducer);
 
 const store = configureStore({
   reducer: {
     mode: persistModeReducer,
     user: persistUserReducer,
-    cartSheet: cartSheetReducer,
+    cart: persistCartReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

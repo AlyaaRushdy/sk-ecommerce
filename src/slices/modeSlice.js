@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const themeInLocalStorage = localStorage.getItem("persist:root")
-  ? JSON.parse(localStorage.getItem("persist:root")).theme.slice(1, -1)
+const themeInLocalStorage = localStorage.getItem("persist:theme")
+  ? JSON.parse(localStorage.getItem("persist:theme")).theme?.slice(1, -1)
   : "light";
 
 const initialState = {
