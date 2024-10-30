@@ -13,6 +13,7 @@ import storage from "redux-persist/lib/storage";
 
 import modeReducer from "../slices/modeSlice";
 import userReducer from "../slices/userSlice";
+import cartSheetReducer from "../slices/cartSheetSlice";
 
 const persistConfig = {
   key: "root",
@@ -27,6 +28,7 @@ const store = configureStore({
   reducer: {
     mode: persistModeReducer,
     user: persistUserReducer,
+    cartSheet: cartSheetReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
