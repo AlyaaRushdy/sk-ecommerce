@@ -19,18 +19,6 @@ function Cart() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:5000/products/")
-  //     .then((res) => res.data)
-  //     .then((res) => {
-  //       setProducts(res.products);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
-
   return (
     <>
       <Sheet

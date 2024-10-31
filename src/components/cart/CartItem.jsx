@@ -1,15 +1,25 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
 import { Plus, Minus, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { useDispatch } from "react-redux";
+import { decrement, increment, remove } from "@/slices/cartSlice";
+import { useToast } from "@/hooks/use-toast";
 
 function CartItem({ product, isLast }) {
-  const [count, setCount] = useState(1);
+  const dispatch = useDispatch();
+  const { toast } = useToast();
 
   const priceAfterDiscount = (originalPrice, discountPercentage) => {
     const discountedAmount = (originalPrice * discountPercentage) / 100;
     return originalPrice - discountedAmount;
+  };
+
+  const handleRemoveFromCart = () => {
+    dispatch(remove(product));
+    toast({
+      description: `${product.title} removed from cart successfully!`,
+    });
   };
 
   return (
@@ -50,26 +60,30 @@ function CartItem({ product, isLast }) {
                 }
                 variant="ghost"
                 onClick={() => {
-                  setCount(count - 1);
+                  dispatch(decrement(product));
                 }}
-                disabled={count > 1 ? false : true}
+                disabled={product.quantity > 1 ? false : true}
               >
                 <Minus />
                 <span className="sr-only">decrease item quantity</span>
               </Button>
-              <p>{count}</p>
+              <p>{product.quantity}</p>
               <Button
                 className="h-auto p-1.5 hover:bg-background hover:text-primary"
                 variant="ghost"
                 onClick={() => {
-                  setCount(count + 1);
+                  dispatch(increment(product));
                 }}
               >
                 <Plus />
                 <span className="sr-only">increase item quantity</span>
               </Button>
             </div>
-            <Button className="h-auto p-2.5" variant="destructive">
+            <Button
+              className="h-auto p-2.5"
+              variant="destructive"
+              onClick={handleRemoveFromCart}
+            >
               <Trash2 />
             </Button>
           </div>
