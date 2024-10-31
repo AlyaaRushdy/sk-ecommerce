@@ -10,11 +10,6 @@ function CartItem({ product, isLast }) {
   const dispatch = useDispatch();
   const { toast } = useToast();
 
-  const priceAfterDiscount = (originalPrice, discountPercentage) => {
-    const discountedAmount = (originalPrice * discountPercentage) / 100;
-    return originalPrice - discountedAmount;
-  };
-
   const handleRemoveFromCart = () => {
     dispatch(remove(product));
     toast({
@@ -40,11 +35,7 @@ function CartItem({ product, isLast }) {
           <p>{`${product.volume} - ${product.scent}`}</p>
           {product.discountPercentage > 0 ? (
             <p>
-              {priceAfterDiscount(
-                product.basePrice,
-                product.discountPercentage
-              )}{" "}
-              EGP
+              {product.priceAfterDiscount} EGP
               <span className="ms-1 text-sm text-red-400 line-through">
                 {product.basePrice} EGP
               </span>
