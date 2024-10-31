@@ -4,6 +4,7 @@ import Product from "./components/products/Product";
 import Cart from "./components/shared/Cart";
 import Products from "./pages/Products";
 import Navbar from "./components/shared/Navbar";
+import { Toaster } from "./components/ui/toaster";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/products" element={<Products />} />
       </Routes>
       <Cart />
+      <Toaster />
     </>
   );
 }
