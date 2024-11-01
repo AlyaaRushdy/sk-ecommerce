@@ -1,40 +1,15 @@
 /* eslint-disable no-unused-vars */
 "use client";
 import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Search, User, ShoppingBag } from "lucide-react";
+import { useState} from "react";
+
 import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-} from "@/components/ui/navigation-menu";
-import NavSheet from "@/components/shared/NavSheet";
+
 import { Coins } from "lucide-react";
 import { PlaceholdersAndVanishInput } from "@/components/ui/placeholders-and-vanish-input";
 
 
-const links = [
-  {
-    title: "Home",
-    url: "/",
-  },
-  {
-    title: "Body Oils",
-    url: "/bodyOils",
-  },
-  {
-    title: "Masks",
-    url: "/masks",
-  },
-  {
-    title: "Contact",
-    url: "/contact",
-  },
-];
 
 const products = [
   {
@@ -104,87 +79,6 @@ const products = [
 
 
 
-function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out
-        ${
-          isScrolled || isHovered
-            ? "bg-background bg-opacity-90 backdrop-blur-md"
-            : "bg-transparent"
-        }
-      `}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
-          {/* Navigation Links */}
-          <NavigationMenu>
-            <NavSheet />
-            <NavigationMenuList className="hidden lg:flex lg:space-x-8 md:flex md:space-x-5 sm:flex sm:space-x-3">
-              {links.map((link) => (
-                <NavigationMenuItem key={link.title}>
-                  <NavigationMenuLink asChild>
-                    <Link
-                      to={link.url}
-                      className="text-sm font-medium text-gray-800 hover:text-gray-600 transition-colors"
-                    >
-                      {link.title}
-                    </Link>
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-              ))}
-            </NavigationMenuList>
-          </NavigationMenu>
-
-          {/* Logo */}
-          <div className="text-xl font-semibold text-gray-800">
-            <Link to="/">
-              <img
-                src="/src/assets/logo.png"
-                alt="sk logo"
-                className="w-16 mr-4"
-              />
-            </Link>
-          </div>
-
-          {/* Icons Section */}
-          <div className="flex items-center space-x-4">
-            <button
-              aria-label="Search"
-              className="text-gray-800 hover:text-gray-600 transition-colors"
-            >
-              <Search size={20} />
-            </button>
-            <button
-              aria-label="User account"
-              className="text-gray-800 hover:text-gray-600 transition-colors"
-            >
-              <User size={20} />
-            </button>
-            <button
-              aria-label="Shopping cart"
-              className="text-gray-800 hover:text-gray-600 transition-colors"
-            >
-              <ShoppingBag size={20} />
-            </button>
-          </div>
-        </div>
-      </div>
-    </header>
-  );
-}
-
 function HeroSection() {
   return (
     <section className="pt-60">
@@ -214,26 +108,25 @@ function HeroSection() {
 
 function Categories() {
   return (
-    <div className="container mx-auto px-16 py-8">
-      <div className="grid md:grid-cols-2 gap-8">
+    <div className="container mx-auto py-6 px-4 sm:px-6 lg:px-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-14 h-auto md:h-72">
+
         {/* New Product Section */}
-        <div className="relative rounded-lg overflow-hidden">
+        <div className="relative rounded-lg overflow-hidden h-64 md:h-auto">
           <img
             src="../src/assets/vanilla musk.jpg"
             alt="New Product"
-            width={600}
-            height={400}
             className="object-cover w-full h-full"
           />
-          <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-6">
-            <p className="text-white text-sm mb-2">WELCOME</p>
-            <h2 className="text-white text-3xl font-bold mb-2">New Product</h2>
-            <p className="text-white text-sm mb-4">
+          <div className="absolute inset-0 bg-black bg-opacity-40 dark:bg-gray-900 dark:bg-opacity-60 flex flex-col justify-end p-4 sm:p-6">
+            <p className="text-white text-xs sm:text-sm mb-1 sm:mb-2 dark:text-gray-300">WELCOME</p>
+            <h2 className="text-white text-xl sm:text-2xl md:text-3xl font-bold mb-1 sm:mb-2 dark:text-gray-100">New Product</h2>
+            <p className="text-white text-xs sm:text-sm mb-2 sm:mb-4 dark:text-gray-300">
               Meticulously tested by people who know your struggle
             </p>
             <Button
               variant="outline"
-              className="self-start text-slate-900 border-gray-700 hover:bg-black hover:text-slate-400 transition-colors"
+              className="self-start text-slate-900 dark:text-gray-100 border-gray-700 dark:border-gray-500 hover:bg-black hover:text-slate-400 dark:hover:bg-gray-800 dark:hover:text-gray-300 transition-colors text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-2"
             >
               SHOP NOW
             </Button>
@@ -241,21 +134,21 @@ function Categories() {
         </div>
 
         {/* Best Sellers Section */}
-        <div className="relative rounded-lg overflow-hidden">
+        <div className="relative rounded-lg overflow-hidden h-64 md:h-auto">
           <img
             src="../src/assets/hydration oils.jpg"
             alt="Skincare product tubes"
             className="object-cover w-full h-full"
           />
-          <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-6">
-            <p className="text-white text-sm mb-2">INTRODUCING</p>
-            <h2 className="text-white text-3xl font-bold mb-2">Best Sellers</h2>
-            <p className="text-white text-sm mb-4">
+          <div className="absolute inset-0 bg-black bg-opacity-40 dark:bg-gray-900 dark:bg-opacity-60 flex flex-col justify-end p-4 sm:p-6">
+            <p className="text-white text-xs sm:text-sm mb-1 sm:mb-2 dark:text-gray-300">INTRODUCING</p>
+            <h2 className="text-white text-xl sm:text-2xl md:text-3xl font-bold mb-1 sm:mb-2 dark:text-gray-100">Best Sellers</h2>
+            <p className="text-white text-xs sm:text-sm mb-2 sm:mb-4 dark:text-gray-300">
               You won&apos;t re—great these
             </p>
             <Button
               variant="outline"
-              className="self-start text-slate-900 border-gray-700 hover:bg-black hover:text-slate-400 transition-colors"
+              className="self-start text-slate-900 dark:text-gray-100 border-gray-700 dark:border-gray-500 hover:bg-black hover:text-slate-400 dark:hover:bg-gray-800 dark:hover:text-gray-300 transition-colors text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-2"
             >
               SHOP NOW
             </Button>
@@ -266,17 +159,20 @@ function Categories() {
   );
 }
 
+
+
 function Product() {
-
   return (
-    <div className="container mx-auto py-12">
-      <h2 className="text-3xl font-serif text-center mb-10">Shop Products</h2>
+    <div className="container mx-auto py-6 px-4 sm:px-6 lg:px-8">
+      <h2 className="text-3xl font-serif text-center mb-10 dark:text-gray-100">
+        Shop Products
+      </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 px-16 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8 px-4 sm:px-8 lg:px-0">
         {products.map((product) => (
           <div
             key={product.name}
-            className="group bg-white rounded-lg shadow-md overflow-hidden transition-all duration-150 ease-in-out hover:shadow-xl hover:border-y-primary hover:border-y-2"
+            className="group bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-all duration-150 ease-in-out hover:shadow-xl hover:border-y-primary dark:hover:border-y-primary hover:border-y-2"
           >
             <div className="relative aspect-square">
               <img
@@ -285,18 +181,22 @@ function Product() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="p-4">
+            <div className="p-4 dark:text-gray-100">
               <h3 className="font-medium text-lg mb-2 truncate">
                 {product.name}
               </h3>
-              <p className="text-sm text-gray-600 mb-4 h-12 overflow-hidden">
+              <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 h-12 overflow-hidden">
                 {product.description}
               </p>
               <div className="productDetails transition-all duration-400 ease-in-out group-hover:opacity-0 group-hover:hidden group-hover:translate-y-2">
-                <p className="font-bold text-lg mb-2">L.E. {product.price}</p>
-                <hr />
+                <p className="font-bold text-lg mb-2 dark:text-gray-100">
+                  L.E. {product.price}
+                </p>
+                <hr className="border-gray-300 dark:border-gray-600" />
                 <div className="flex items-center justify-between">
-                  <p className="text-sm text-gray-500">{product.brand}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-300">
+                    {product.brand}
+                  </p>
                   <div className="flex items-center">
                     {[...Array(5)].map((_, i) => (
                       <Star
@@ -304,19 +204,19 @@ function Product() {
                         className={cn(
                           "w-4 h-4",
                           i < Math.floor(product.rating)
-                            ? "text-yellow-400 fill-current"
-                            : "text-gray-300"
+                            ? "text-yellow-400 dark:text-yellow-500"
+                            : "text-gray-300 dark:text-gray-500"
                         )}
                       />
                     ))}
-                    <span className="text-xs text-gray-500 ml-2">
+                    <span className="text-xs text-gray-500 dark:text-gray-400 ml-2">
                       ({product.reviews})
                     </span>
                   </div>
                 </div>
               </div>
               <div className="addToCart hidden opacity-0 transition-all duration-1000 ease-in-out transform -translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 group-hover:block">
-                <button className="w-full border-[1px] border-gray-300 text-black font-semibold text-sm py-3 rounded-full hover:border-black hover:text-primary transition-colors duration-300 ease-in-out">
+                <button className="w-full border-[1px] border-gray-300 dark:border-gray-600 text-black dark:text-gray-100 font-semibold text-sm py-3 rounded-full hover:border-black dark:hover:border-primary hover:text-primary dark:hover:text-primary transition-colors duration-300 ease-in-out">
                   ADD TO BAG - L.E {product.price}
                 </button>
               </div>
@@ -327,6 +227,8 @@ function Product() {
     </div>
   );
 }
+
+
 
 
 function NewsletterSubscription() {
@@ -350,7 +252,7 @@ function NewsletterSubscription() {
 
 
   return (
-    <div className="bg-white w-full mx-auto px-16 py-12 font-sans">
+    <div className="dark:bg-background container mx-auto py-6 px-4 sm:px-6 lg:px-8 font-sans">
       <h2 className="text-3xl mb-2 font-serif">
         Re—<span className="italic font-cursive">ceive</span> 15% off your first order
       </h2>
@@ -443,8 +345,7 @@ function Footer() {
 export default function HomePage() {
   return (
     <div className="scroll-smooth">
-      <div className="min-h-screen bg-[url('../src/assets/banner.svg')] w-full bg-no-repeat bg-cover">
-        <Header />
+      <div className="min-h-screen bg-[url('../src/assets/banner.svg')] w-full bg-no-repeat bg-cover -mt-20">
         <HeroSection />
       </div>
       <div>
