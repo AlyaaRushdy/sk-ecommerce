@@ -16,8 +16,33 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/refundpolicy" element={<RefundPolicy />} />
-
-
+        <Route
+          path="/bodyOils"
+          element={
+            <Products
+              url={"http://localhost:5000/categories/code/bodyOils"}
+              h1Text="Body Oils"
+            />
+          }
+        />
+        <Route
+          path="/masks"
+          element={
+            <Products
+              url={"http://localhost:5000/categories/code/masks"}
+              h1Text="Masks"
+            />
+          }
+        />
+        <Route
+          path="/products"
+          element={
+            <Products
+              url={"http://localhost:5000/products/"}
+              h1Text="All Products"
+            />
+          }
+        />
       </Routes>
       <Cart />
       <Toaster />
