@@ -8,18 +8,8 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Switch } from "@/components/ui/switch";
-import { DualRangeSlider } from "../ui/dual-range-slider";
-import { useState } from "react";
 
-function FilterSheet({ isOpen, setIsOpen }) {
-  const [values, setValues] = useState([0, 100]);
+function FilterSheet({ isOpen, setIsOpen, handleFilter, children }) {
   return (
     <>
       <Sheet
@@ -33,35 +23,11 @@ function FilterSheet({ isOpen, setIsOpen }) {
             <SheetTitle>FILTER</SheetTitle>
           </SheetHeader>
           <div className="px-4 sm:px-6 mr-2 flex-grow">
-            <div className="flex flex-col gap-3 py-4 ">
-              <Accordion type="multiple" collapsible className="w-full">
-                <AccordionItem value="item-1">
-                  <AccordionTrigger>Availability</AccordionTrigger>
-                  <AccordionContent className="flex gap-2 items-center">
-                    <Switch id="availability" />
-                    <p>In-stock</p>
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item-2">
-                  <AccordionTrigger>Price</AccordionTrigger>
-                  <AccordionContent className="pr-1">
-                    <DualRangeSlider
-                      label={(value) => value}
-                      value={values}
-                      onValueChange={setValues}
-                      min={0}
-                      max={100}
-                      step={1}
-                      className="pt-8"
-                    />
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </div>
+            <div className="flex flex-col gap-3 py-4">{children}</div>
           </div>
           <SheetFooter className={"px-4 sm:px-6"}>
             <SheetClose asChild>
-              <Button className={"sm:w-full"} onClick={() => {}}>
+              <Button className={"sm:w-full"} onClick={handleFilter}>
                 Apply
               </Button>
             </SheetClose>
