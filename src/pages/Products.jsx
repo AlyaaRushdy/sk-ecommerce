@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import FilterSheet from "@/components/products/filterSheet";
 import ProductItem from "@/components/products/productItem";
 import {
@@ -14,6 +15,7 @@ import _ from "lodash";
 import { Button } from "@/components/ui/button";
 import FilterAccordion from "@/components/products/filterAccordion";
 import useMediaQuery from "@/hooks/useMediaQuery";
+import NoProductsFound from "@/components/products/noProductsFound";
 
 const sortList = [
   { value: "priceAsc", title: "Price, low to high" },
@@ -24,7 +26,7 @@ const sortList = [
   { value: "alphDes", title: "alphabitically, Z to A" },
 ];
 
-function Products() {
+function Products({ url, h1Text }) {
   const [products, setProducts] = useState([]);
   const originalProductsArray = useRef([]);
   const sortCriteria = useRef("");
@@ -36,7 +38,7 @@ function Products() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/products/")
+      .get(url)
       .then((res) => res.data)
       .then((res) => {
         setProducts(res.products);
@@ -52,9 +54,15 @@ function Products() {
         setPriceRange([initPriceRange.current.min, initPriceRange.current.max]);
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response && err.response.status == 404) {
+          setProducts([]);
+          originalProductsArray.current = [];
+          return null;
+        } else console.log(err);
       });
-  }, []);
+
+    return () => setProducts([]);
+  }, [url]);
 
   const handleSort = () => {
     switch (sortCriteria.current) {
@@ -106,9 +114,9 @@ function Products() {
 
   return (
     <>
-      <section className="py-4">
+      <section className="py-4 flex flex-col min-h-[calc(100vh_-_80px)]">
         <h1 className="text-center uppercase pb-6 pt-4 md:pt-6 font-semibold text-xl sm:text-2xl tracking-[.25em]">
-          all products
+          {h1Text}
         </h1>
         <div className="border-y flex flex-row sm:flex-row-reverse justify-between sticky top-20 bg-background left-0 z-10">
           <div className="flex flex-grow sm:flex-grow-0 px-3 relative">
@@ -171,28 +179,32 @@ function Products() {
             </button>
           </div>
         </div>
-        <div className="p-4 flex gap-5 items-start">
-          {isLargeScreen && (
-            <div className="flex flex-col gap-3 py-4 min-w-60 xl:min-w-64 sticky top-32 bottom-0">
-              <FilterAccordion
-                priceRange={priceRange}
-                setPriceRange={setPriceRange}
-                initPriceRange={initPriceRange}
-                inStockChecked={inStockChecked}
-                setInStockChecked={setInStockChecked}
-              />
-              <Button className="ms-auto mt-4 w-fit" onClick={handleFilter}>
-                Apply
-              </Button>
-            </div>
-          )}
+        {products.length == 0 ? (
+          <NoProductsFound />
+        ) : (
+          <div className="p-4 flex gap-5 items-start">
+            {isLargeScreen && (
+              <div className="flex flex-col gap-3 py-4 min-w-60 xl:min-w-64 sticky top-32 bottom-0">
+                <FilterAccordion
+                  priceRange={priceRange}
+                  setPriceRange={setPriceRange}
+                  initPriceRange={initPriceRange}
+                  inStockChecked={inStockChecked}
+                  setInStockChecked={setInStockChecked}
+                />
+                <Button className="ms-auto mt-4 w-fit" onClick={handleFilter}>
+                  Apply
+                </Button>
+              </div>
+            )}
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:gap-5 gap-3">
-            {products.map((product, index) => (
-              <ProductItem product={product} key={index} />
-            ))}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:gap-5 gap-3">
+              {products.map((product, index) => (
+                <ProductItem product={product} key={index} />
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </section>
     </>
   );
