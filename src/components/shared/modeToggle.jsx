@@ -12,15 +12,15 @@ function ModeToggle() {
       <Button
         variant="ghost"
         size="icon"
-        className="w-8 h-8"
+        className="flex items-center hover:bg-background hover:text-primary focus:bg-background active:bg-background w-6 h-6 [&_svg]:size-5 transition-none"
         onClick={() => {
           mode.theme === "light"
             ? dispatch(setMode("dark"))
             : dispatch(setMode("light"));
         }}
       >
-        <Sun className="h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:-rotate-0 dark:scale-100" />
-        <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-0 transition-all dark:rotate-90 dark:scale-0" />
+        <Sun className="rotate-90 scale-0 transition-all dark:-rotate-0 dark:scale-100" />
+        <Moon className="absolute rotate-0 transition-all dark:rotate-90 dark:scale-0" />
         <span className="sr-only">Toggle theme</span>
       </Button>
     </>
