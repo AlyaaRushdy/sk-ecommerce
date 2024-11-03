@@ -1,4 +1,8 @@
 /** @type {import('tailwindcss').Config} */
+
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+
 export default {
   darkMode: ["class"],
   content: ["./index.html", "./src/**/*.{js,jsx}"],
@@ -79,5 +83,6 @@ export default {
       },
     },
   },
+
   plugins: [require("tailwindcss-animate")],
 };
