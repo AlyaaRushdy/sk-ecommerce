@@ -12,7 +12,7 @@ function ModeToggle() {
       <Button
         variant="ghost"
         size="icon"
-        className="flex items-center hover:bg-background hover:text-primary focus:bg-background active:bg-background w-6 h-6 [&_svg]:size-5 transition-none"
+        className="flex items-center hover:bg-transparent hover:text-primary focus:bg-transparent active:bg-transparent w-6 h-6 [&_svg]:size-5 transition-none"
         onClick={() => {
           mode.theme === "light"
             ? dispatch(setMode("dark"))
