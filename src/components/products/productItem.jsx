@@ -24,7 +24,7 @@ function ProductItem({ product }) {
         <div className="relative">
           <Link to={`/product/${product.id}`}>
             <img
-              src="/src/assets/HydratingOil.jpg"
+              src={product.image}
               alt={`${product.title} image`}
               className="aspect-square w-full object-cover"
             />

@@ -35,7 +35,7 @@ function App() {
           }
         />
         <Route
-          path="/products"
+          path="/allproducts"
           element={
             <Products
               url={"http://localhost:5000/products/"}
