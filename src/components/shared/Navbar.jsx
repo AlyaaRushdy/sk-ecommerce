@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
@@ -12,6 +12,7 @@ import { User, Search, ShoppingBasket } from "lucide-react";
 import NavSheet from "./NavSheet";
 import ModeToggle from "./modeToggle";
 import { openCart } from "@/slices/cartSlice";
+import { Badge } from "../ui/badge";
 
 const links = [
   {
@@ -35,6 +36,7 @@ const links = [
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const dispatch = useDispatch();
+  const { productsIds } = useSelector((state) => state.cart);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -133,16 +135,27 @@ function Navbar() {
                 </div>
               )}
             </NavigationMenuItem>
-            <NavigationMenuItem>
+            <NavigationMenuItem className="relative">
               <NavigationMenuLink asChild>
-                <Link
-                  className="hover:text-primary font-medium"
-                  onClick={() => {
-                    dispatch(openCart());
-                  }}
-                >
-                  <ShoppingBasket />
-                </Link>
+                <>
+                  {productsIds.length > 0 && (
+                    <Badge
+                      className={
+                        "absolute -top-2 -right-4 p-0 size-6 flex justify-center items-center text-foreground"
+                      }
+                    >
+                      {productsIds.length}
+                    </Badge>
+                  )}
+                  <Link
+                    className="hover:text-primary font-medium"
+                    onClick={() => {
+                      dispatch(openCart());
+                    }}
+                  >
+                    <ShoppingBasket />
+                  </Link>
+                </>
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
