@@ -6,6 +6,7 @@ import Navbar from "./components/shared/Navbar";
 import { Toaster } from "./components/ui/toaster";
 import ProductDetails from "./pages/ProductDetails";
 import RefundPolicy from "./pages/RefundPolicy";
+import Contact from "./pages/Contact";
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/refundpolicy" element={<RefundPolicy />} />
+        <Route path="/contact" element={<Contact />} />
+
         <Route
           path="/bodyOils"
           element={
