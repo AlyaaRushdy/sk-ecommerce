@@ -26,7 +26,7 @@ function CartItem({ product, isLast }) {
         )}
       >
         <img
-          src="/src/assets/HydratingOil.jpg"
+          src={product.images[0]}
           alt={`${product.title} image`}
           className="w-full"
         />
