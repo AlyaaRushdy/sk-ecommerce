@@ -37,6 +37,7 @@ function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const dispatch = useDispatch();
   const { productsIds } = useSelector((state) => state.cart);
+  const { token } = useSelector((state) => state.user);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -101,7 +102,7 @@ function Navbar() {
             <NavigationMenuItem className="hidden md:block">
               <NavigationMenuLink asChild>
                 <Link
-                  to={"/account"}
+                  to={token ? "/account" : "/login"}
                   className="hover:text-primary font-medium"
                 >
                   <User />
