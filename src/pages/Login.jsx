@@ -19,6 +19,7 @@ import {
 import axios from "axios";
 import { setToken } from "@/slices/userSlice";
 import { useToast } from "@/hooks/use-toast";
+import { getCart } from "@/slices/cartSlice";
 
 const formFields = [
   {
@@ -64,6 +65,7 @@ function Login() {
         if (res.status == 200) {
           const token = res.headers["authorization"].split(" ")[1];
           dispatch(setToken(token));
+          dispatch(getCart(token));
           toast({
             title: res.data.message,
           });
