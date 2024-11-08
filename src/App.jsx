@@ -9,6 +9,7 @@ import RefundPolicy from "./pages/RefundPolicy";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import Register from "./pages/register";
+import Account from "./pages/Account";
 
 const productsPaths = [
   {
@@ -48,6 +49,15 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/contact" element={<Contact />} />
+        <Route
+          path="/account"
+          element={
+            <Account
+              url={"http://localhost:5000/account/"}
+              h1Text="Account Page"
+            />
+          }
+        />
       </Routes>
       <Cart />
       <Toaster />
