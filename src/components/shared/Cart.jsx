@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { closeCart } from "@/slices/cartSlice";
 
 function Cart() {
-  const { isOpen, products } = useSelector((state) => state.cart);
+  const { isOpen, products, total } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -46,7 +46,7 @@ function Cart() {
                   ))}
                 </div>
               </ScrollArea>
-              <SheetFooter className={"px-4 sm:px-6"}>
+              <SheetFooter className={"px-4 sm:px-6 "}>
                 <SheetClose asChild>
                   <Button
                     className={"sm:w-full"}
@@ -54,7 +54,7 @@ function Cart() {
                       navigate("/checkout");
                     }}
                   >
-                    Check Out
+                    Check Out - {total} EGP
                   </Button>
                 </SheetClose>
               </SheetFooter>
