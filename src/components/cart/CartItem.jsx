@@ -1,32 +1,79 @@
 /* eslint-disable react/prop-types */
 import { Plus, Minus, Trash2 } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { useDispatch } from "react-redux";
-import { decrement, increment, remove } from "@/slices/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  decrement,
+  decrementItem,
+  increment,
+  incrementItem,
+  remove,
+  removeItem,
+} from "@/slices/cartSlice";
 import { useToast } from "@/hooks/use-toast";
 
 function CartItem({ product, isLast }) {
+  const { token } = useSelector((state) => state.user);
+  const { status } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const { toast } = useToast();
 
   const handleRemoveFromCart = () => {
-    dispatch(remove(product));
-    toast({
-      description: `${product.title} removed from cart successfully!`,
-    });
+    if (token) {
+      dispatch(removeItem({ token, productId: product.id }));
+      if (status == "succeeded") {
+        toast({
+          description: `${product.title} removed from cart successfully!`,
+        });
+      } else if (status == "failed") {
+        toast({
+          variant: "destructive",
+          description: `something went wrong, please try again later!`,
+        });
+      }
+    } else {
+      dispatch(remove(product));
+    }
+  };
+
+  const handleIncrement = () => {
+    if (token) {
+      dispatch(incrementItem({ token, productId: product.id }));
+      if (status == "failed") {
+        toast({
+          variant: "destructive",
+          description: `something went wrong, please try again later!`,
+        });
+      }
+    } else {
+      dispatch(increment(product));
+    }
+  };
+
+  const handleDecrement = () => {
+    if (token) {
+      dispatch(decrementItem({ token, productId: product.id }));
+      if (status == "failed") {
+        toast({
+          variant: "destructive",
+          description: `something went wrong, please try again later!`,
+        });
+      }
+    } else {
+      dispatch(decrement(product));
+    }
   };
 
   return (
     <>
       <div
-        className={cn(
-          "grid grid-cols-cart items-center gap-4 pb-3",
-          !isLast ? "border-b" : ""
-        )}
+        className={`grid grid-cols-cart items-center gap-4 pb-3
+          ${!isLast ? "border-b" : ""} ${
+          status == "loading" ? "cursor-progress" : ""
+        }`}
       >
         <img
-          src="/src/assets/HydratingOil.jpg"
+          src={product.images[0]}
           alt={`${product.title} image`}
           className="w-full"
         />
@@ -46,13 +93,11 @@ function CartItem({ product, isLast }) {
           <div className="flex flex-row gap-1 justify-between items-center pt-2">
             <div className="p-1 border flex gap-1 justify-center items-center">
               <Button
-                className={
-                  "h-auto p-1.5 hover:bg-background hover:text-primary"
-                }
+                className={`h-auto p-1.5 hover:bg-background hover:text-primary ${
+                  status == "loading" && "cursor-progress"
+                }`}
                 variant="ghost"
-                onClick={() => {
-                  dispatch(decrement(product));
-                }}
+                onClick={handleDecrement}
                 disabled={product.quantity > 1 ? false : true}
               >
                 <Minus />
@@ -60,18 +105,21 @@ function CartItem({ product, isLast }) {
               </Button>
               <p>{product.quantity}</p>
               <Button
-                className="h-auto p-1.5 hover:bg-background hover:text-primary"
+                className={`h-auto p-1.5 hover:bg-background hover:text-primary ${
+                  status == "loading" && "cursor-progress"
+                }`}
                 variant="ghost"
-                onClick={() => {
-                  dispatch(increment(product));
-                }}
+                onClick={handleIncrement}
+                disabled={product.quantity == product.stock ? true : false}
               >
                 <Plus />
                 <span className="sr-only">increase item quantity</span>
               </Button>
             </div>
             <Button
-              className="h-auto p-2.5"
+              className={`h-auto p-2.5 ${
+                status == "loading" && "cursor-progress"
+              }`}
               variant="destructive"
               onClick={handleRemoveFromCart}
             >

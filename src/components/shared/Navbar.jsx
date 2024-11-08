@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { cn } from "@/lib/utils";
@@ -37,13 +37,34 @@ function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const dispatch = useDispatch();
   const { productsIds } = useSelector((state) => state.cart);
+  const { token } = useSelector((state) => state.user);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+  const [showSearch, setShowSearch] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const searchRef = useRef(null);
 
+  const handleSearchClick = () => {
+    setShowSearch(!showSearch);
+  };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setShowSearch(false);
+      }
+    };
+
+    // Add event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Clean up the event listener
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   return (
     <>
       <NavigationMenu
@@ -81,7 +102,7 @@ function Navbar() {
             <NavigationMenuItem className="hidden md:block">
               <NavigationMenuLink asChild>
                 <Link
-                  to={"/account"}
+                  to={token ? "/account" : "/login"}
                   className="hover:text-primary font-medium"
                 >
                   <User />
@@ -90,10 +111,30 @@ function Navbar() {
             </NavigationMenuItem>
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
-                <Link className="hover:text-primary font-medium">
+                <Link
+                  className="font-medium hover:text-primary"
+                  onClick={handleSearchClick}
+                >
                   <Search />
                 </Link>
               </NavigationMenuLink>
+              {showSearch && (
+                <div
+                  className={`absolute top-16 right-10  transition-all duration-300 ease-in-out transform ${
+                    showSearch
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 -translate-y-4"
+                  }`}
+                >
+                  <input
+                    type="text"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    placeholder="Search..."
+                    className="w-full px-4 py-2 border border-gray-300 rounded outline-none active:border-yellow-500"
+                  />
+                </div>
+              )}
             </NavigationMenuItem>
             <NavigationMenuItem className="relative">
               <NavigationMenuLink asChild>

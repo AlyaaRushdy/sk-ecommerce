@@ -1,21 +1,26 @@
 /* eslint-disable react/prop-types */
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { add } from "@/slices/cartSlice";
+import { add, addItem } from "@/slices/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Badge } from "../ui/badge";
 
 function ProductItem({ product }) {
-  const { productsIds } = useSelector((state) => state.cart);
+  const { productsIds, status } = useSelector((state) => state.cart);
+  const { token } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const { toast } = useToast();
 
   const handleAddToCart = () => {
-    dispatch(add({ ...product, quantity: 1 }));
-    toast({
-      description: `${product.title} added to cart successfully!`,
-    });
+    if (token) {
+      dispatch(addItem({ productId: product.id, quantity: 1, token }));
+      toast({
+        description: `${product.title} added to cart successfully!`,
+      });
+    } else {
+      dispatch(add({ ...product, quantity: 1 }));
+    }
   };
 
   return (
@@ -24,7 +29,7 @@ function ProductItem({ product }) {
         <div className="relative">
           <Link to={`/product/${product.id}`}>
             <img
-              src={product.image}
+              src={product.images[0]}
               alt={`${product.title} image`}
               className="aspect-square w-full object-cover"
             />
@@ -61,7 +66,9 @@ function ProductItem({ product }) {
           </p>
         </div>
         <Button
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:-translate-y-3 group-hover:disabled:opacity-50 transition-all"
+          className={`absolute bottom-0 left-1/2 -translate-x-1/2 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:-translate-y-3 group-hover:disabled:opacity-50 transition-all ${
+            status == "loading" && "cursor-progress"
+          }`}
           onClick={handleAddToCart}
           disabled={
             productsIds.includes(product.id) || product.status == "out-of-stock"
