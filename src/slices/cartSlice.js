@@ -5,6 +5,10 @@ export const getCart = createAsyncThunk("cart/getCart", async (token) => {
   const response = await axios.get("http://localhost:5000/carts/user", {
     headers: { Authorization: `Bearer ${token}` },
   });
+  if (response.status == 404) {
+    // ! TO BE HANDLED
+    return;
+  }
   return response.data;
 });
 
@@ -120,11 +124,18 @@ const cartSlice = createSlice({
       })
       .addCase(getCart.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.products = action.payload.products;
-        state.productsIds = action.payload.products.map(
-          (product) => product.id
-        );
-        state.total = action.payload.total;
+        if (action.payload.products?.length > 0) {
+          // TODO: merge carts
+          console.log("in the merge function");
+        } else {
+          // TODO: push current cart to the backend
+          console.log("in the push function");
+        }
+        // state.products = action.payload.products;
+        // state.productsIds = action.payload.products.map(
+        //   (product) => product.id
+        // );
+        // state.total = action.payload.total;
       })
       .addCase(getCart.rejected, (state, action) => {
         state.status = "failed";

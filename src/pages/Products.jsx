@@ -1,4 +1,8 @@
 /* eslint-disable react/prop-types */
+import _ from "lodash";
+import { useEffect, useRef, useState } from "react";
+import axios from "axios";
+import { LayoutGrid, Square } from "lucide-react";
 import FilterSheet from "@/components/products/filterSheet";
 import ProductItem from "@/components/products/productItem";
 import {
@@ -8,10 +12,6 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import axios from "axios";
-import { LayoutGrid, Square } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
-import _ from "lodash";
 import { Button } from "@/components/ui/button";
 import FilterAccordion from "@/components/products/filterAccordion";
 import useMediaQuery from "@/hooks/useMediaQuery";
@@ -114,7 +114,7 @@ function Products({ url, h1Text }) {
 
   return (
     <>
-      <section className="py-4 flex flex-col min-h-[calc(100vh_-_80px)]">
+      <section className="py-4 flex flex-col">
         <h1 className="text-center uppercase pb-6 pt-4 md:pt-6 font-semibold text-xl sm:text-2xl tracking-[.25em]">
           {h1Text}
         </h1>
@@ -179,32 +179,32 @@ function Products({ url, h1Text }) {
             </button>
           </div>
         </div>
-        {products.length == 0 ? (
-          <NoProductsFound />
-        ) : (
-          <div className="p-4 flex gap-5 items-start">
-            {isLargeScreen && (
-              <div className="flex flex-col gap-3 py-4 min-w-60 xl:min-w-64 sticky top-32 bottom-0">
-                <FilterAccordion
-                  priceRange={priceRange}
-                  setPriceRange={setPriceRange}
-                  initPriceRange={initPriceRange}
-                  inStockChecked={inStockChecked}
-                  setInStockChecked={setInStockChecked}
-                />
-                <Button className="ms-auto mt-4 w-fit" onClick={handleFilter}>
-                  Apply
-                </Button>
-              </div>
-            )}
 
+        <div className="p-4 flex gap-5 items-start">
+          {isLargeScreen && (
+            <div className="flex flex-col gap-3 py-4 min-w-60 xl:min-w-64 sticky top-32 bottom-0">
+              <FilterAccordion
+                priceRange={priceRange}
+                setPriceRange={setPriceRange}
+                initPriceRange={initPriceRange}
+                inStockChecked={inStockChecked}
+                setInStockChecked={setInStockChecked}
+              />
+              <Button className="ms-auto mt-4 w-fit" onClick={handleFilter}>
+                Apply
+              </Button>
+            </div>
+          )}
+          {products.length == 0 ? (
+            <NoProductsFound />
+          ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:gap-5 gap-3">
               {products.map((product, index) => (
                 <ProductItem product={product} key={index} />
               ))}
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </section>
     </>
   );

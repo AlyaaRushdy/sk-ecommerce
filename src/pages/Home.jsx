@@ -1,15 +1,13 @@
 /* eslint-disable no-unused-vars */
 "use client";
 import { Button } from "@/components/ui/button";
-import { useState} from "react";
+import { useState } from "react";
 
 import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 import { Coins } from "lucide-react";
 import { PlaceholdersAndVanishInput } from "@/components/ui/placeholders-and-vanish-input";
-
-
 
 const products = [
   {
@@ -77,8 +75,6 @@ const products = [
   },
 ];
 
-
-
 function HeroSection() {
   return (
     <section className="pt-60">
@@ -92,8 +88,8 @@ function HeroSection() {
               Re—seal Budge-Proof Setting Spray
             </h1>
             <p className="text-xl text-gray-600 mb-6">
-              A non-sticky, micro-fine setting spray that seals-in makeup<br /> for up
-              to 16 hours.
+              A non-sticky, micro-fine setting spray that seals-in makeup
+              <br /> for up to 16 hours.
             </p>
             <button className="bg-black text-white px-8 py-3 rounded-full font-semibold hover:bg-gray-800 transition-colors">
               LOCK YOURS IN
@@ -105,12 +101,10 @@ function HeroSection() {
   );
 }
 
-
 function Categories() {
   return (
     <div className="container mx-auto py-6 px-4 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-14 h-auto md:h-72">
-
         {/* New Product Section */}
         <div className="relative rounded-lg overflow-hidden h-64 md:h-auto">
           <img
@@ -119,8 +113,12 @@ function Categories() {
             className="object-cover w-full h-full"
           />
           <div className="absolute inset-0 bg-black bg-opacity-40 dark:bg-gray-900 dark:bg-opacity-60 flex flex-col justify-end p-4 sm:p-6">
-            <p className="text-white text-xs sm:text-sm mb-1 sm:mb-2 dark:text-gray-300">WELCOME</p>
-            <h2 className="text-white text-xl sm:text-2xl md:text-3xl font-bold mb-1 sm:mb-2 dark:text-gray-100">New Product</h2>
+            <p className="text-white text-xs sm:text-sm mb-1 sm:mb-2 dark:text-gray-300">
+              WELCOME
+            </p>
+            <h2 className="text-white text-xl sm:text-2xl md:text-3xl font-bold mb-1 sm:mb-2 dark:text-gray-100">
+              New Product
+            </h2>
             <p className="text-white text-xs sm:text-sm mb-2 sm:mb-4 dark:text-gray-300">
               Meticulously tested by people who know your struggle
             </p>
@@ -141,8 +139,12 @@ function Categories() {
             className="object-cover w-full h-full"
           />
           <div className="absolute inset-0 bg-black bg-opacity-40 dark:bg-gray-900 dark:bg-opacity-60 flex flex-col justify-end p-4 sm:p-6">
-            <p className="text-white text-xs sm:text-sm mb-1 sm:mb-2 dark:text-gray-300">INTRODUCING</p>
-            <h2 className="text-white text-xl sm:text-2xl md:text-3xl font-bold mb-1 sm:mb-2 dark:text-gray-100">Best Sellers</h2>
+            <p className="text-white text-xs sm:text-sm mb-1 sm:mb-2 dark:text-gray-300">
+              INTRODUCING
+            </p>
+            <h2 className="text-white text-xl sm:text-2xl md:text-3xl font-bold mb-1 sm:mb-2 dark:text-gray-100">
+              Best Sellers
+            </h2>
             <p className="text-white text-xs sm:text-sm mb-2 sm:mb-4 dark:text-gray-300">
               You won&apos;t re—great these
             </p>
@@ -159,8 +161,6 @@ function Categories() {
   );
 }
 
-
-
 function Product() {
   return (
     <div className="container mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -172,7 +172,7 @@ function Product() {
         {products.map((product) => (
           <div
             key={product.name}
-            className="group bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-all duration-150 ease-in-out hover:shadow-xl hover:border-y-primary dark:hover:border-y-primary hover:border-y-2"
+            className="group bg-card rounded-lg shadow-md overflow-hidden transition-all duration-150 ease-in-out hover:shadow-xl dark:shadow-neutral-900 hover:border-y-primary dark:hover:border-y-primary hover:border-y-2"
           >
             <div className="relative aspect-square">
               <img
@@ -228,9 +228,6 @@ function Product() {
   );
 }
 
-
-
-
 function NewsletterSubscription() {
   const placeholders = [
     "Enter Your Email",
@@ -239,7 +236,7 @@ function NewsletterSubscription() {
     "No Spam :)",
     "Just The good Stuff",
   ];
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
 
   const handleChange = (e) => {
     console.log(e.target.value);
@@ -250,26 +247,24 @@ function NewsletterSubscription() {
     setEmail("");
   };
 
-
   return (
     <div className="dark:bg-background container mx-auto py-6 px-4 sm:px-6 lg:px-8 font-sans">
       <h2 className="text-3xl mb-2 font-serif">
-        Re—<span className="italic font-cursive">ceive</span> 15% off your first order
+        Re—<span className="italic font-cursive">ceive</span> 15% off your first
+        order
       </h2>
       <p className="text-gray-600 mb-6">
         No spam, just the good stuff. Pinky promise.
       </p>
-        <PlaceholdersAndVanishInput
-          placeholders={placeholders}
-          onChange={handleChange}
-          onSubmit={onSubmit}
-          
-        />
+      <PlaceholdersAndVanishInput
+        placeholders={placeholders}
+        onChange={handleChange}
+        onSubmit={onSubmit}
+      />
       <div className="mt-8 border-t border-gray-200"></div>
     </div>
   );
 }
-
 
 function Footer() {
   return (
@@ -340,7 +335,6 @@ function Footer() {
     </footer>
   );
 }
-
 
 export default function HomePage() {
   return (
