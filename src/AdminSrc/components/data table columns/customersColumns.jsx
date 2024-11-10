@@ -48,7 +48,7 @@ export const customerColumns = (handleBanUser) => [
     },
     cell: ({ row }) => {
       const rowData = row.original;
-      return <Link to={`/customers/${rowData.id}`}>{rowData.fullName}</Link>;
+      return <Link to={`${rowData.id}`}>{rowData.fullName}</Link>;
     },
   },
   {
@@ -58,7 +58,7 @@ export const customerColumns = (handleBanUser) => [
     },
     cell: ({ row }) => {
       const rowData = row.original;
-      return <Link to={`/customers/${rowData.id}`}>{rowData.email}</Link>;
+      return <Link to={`${rowData.id}`}>{rowData.email}</Link>;
     },
   },
   {
