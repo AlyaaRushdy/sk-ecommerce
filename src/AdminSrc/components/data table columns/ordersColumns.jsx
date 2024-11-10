@@ -1,6 +1,5 @@
-
 import { Button } from "@/components/ui/button";
-import TableOrderButton from "@/components/ui/tableOrderButton";
+import TableOrderButton from "@/AdminSrc/components/shared/tableOrderButton";
 import { ChevronsUpDown, PencilLine } from "lucide-react";
 import { Link } from "react-router-dom";
 const getStatusClass = (status) => {
@@ -38,8 +37,6 @@ export const orderColumns = (handleStatusUpdate) => [
     },
   },
 
-
-
   {
     accessorKey: "products",
     header: ({ column }) => {
@@ -53,11 +50,10 @@ export const orderColumns = (handleStatusUpdate) => [
     },
   },
 
-
   {
     accessorKey: "quantity",
     header: "Quantity",
-  
+
     cell: ({ row }) => {
       const productsArray = row.getValue("products");
       const totalQuantity = productsArray.reduce((prev, curr) => {
@@ -67,7 +63,7 @@ export const orderColumns = (handleStatusUpdate) => [
       return <div className="font-medium">{totalQuantity + " Items"}</div>;
     },
   },
-  
+
   {
     accessorKey: "createdAt",
     header: ({ column }) => {
@@ -91,15 +87,11 @@ export const orderColumns = (handleStatusUpdate) => [
     },
   },
 
-
-
-
   {
     accessorKey: "userEmail",
     header: ({ column }) => {
       return <TableOrderButton column={column} text={"Email"} />;
     },
-   
   },
 
   {
@@ -124,7 +116,6 @@ export const orderColumns = (handleStatusUpdate) => [
     },
   },
 
-
   {
     accessorKey: "totalPrice",
     header: ({ column }) => {
@@ -141,23 +132,11 @@ export const orderColumns = (handleStatusUpdate) => [
     },
     enableGlobalFilter: false,
   },
- 
+
   {
     accessorKey: "shippingCity",
     header: ({ column }) => {
       return <TableOrderButton column={column} text={"City"} />;
     },
-   
-  }
-
-
-
-
-
-
-
-
-
-
-
+  },
 ];

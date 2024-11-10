@@ -10,14 +10,14 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import NavSheet from "../../UserSrc/components/shared/NavSheet";
+import NavSheet from "../../../UserSrc/components/shared/NavSheet";
 
-import HeaderBreadcrumb from "@/components/ui/HeaderBreadcrumb";
+import HeaderBreadcrumb from "@/AdminSrc/components/shared/HeaderBreadcrumb";
 import { useDispatch } from "react-redux";
 import { useToast } from "@/hooks/use-toast";
 import { setToken } from "@/Redux/userSlice";
 import { Link } from "react-router-dom";
-import ModeToggle from "@/components/ui/modeToggle";
+import ModeToggle from "@/components/shared/modeToggle";
 
 function Header({ currentPage, prevPage, prevPageLink }) {
   const dispatch = useDispatch();

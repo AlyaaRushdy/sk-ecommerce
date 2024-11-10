@@ -10,9 +10,9 @@ import {
 } from "@/components/ui/navigation-menu";
 import { User, Search, ShoppingBasket } from "lucide-react";
 import NavSheet from "./NavSheet";
-import ModeToggle from "../../../components/ui/modeToggle";
+import ModeToggle from "@/components/shared/modeToggle";
 import { openCart } from "@/Redux/cartSlice";
-import { Badge } from "../../../components/ui/badge";
+import { Badge } from "@/components/ui/badge";
 
 const links = [
   {
@@ -94,7 +94,6 @@ function Navbar() {
               <img
                 // src="/src/assets/logo.png"
                 src="../src/UserSrc/assets/logo.png"
-
                 alt="sk logo"
                 className="w-full"
               />
@@ -172,4 +171,3 @@ function Navbar() {
 }
 
 export default Navbar;
-

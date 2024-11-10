@@ -3,11 +3,9 @@ import axios from "axios";
 import { Users, UserPlus } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { customerColumns } from "../components/data table columns/customersColumns";
-import DataTable from "@/components/ui/DataTable";
-import Header from "@/components/ui/Header";
+import DataTable from "@/AdminSrc/components/shared/DataTable";
+import Header from "@/AdminSrc/components/shared/Header";
 import { useSelector } from "react-redux";
-
-
 
 function Customers() {
   const [customers, setCustomers] = useState([]);
@@ -79,11 +77,7 @@ function Customers() {
           data={customers}
           columns={customerColumns(handleBanUser)}
           tableTitle={"All Customers"}
-
-
-          
         />
-    
       </div>
     </>
   );

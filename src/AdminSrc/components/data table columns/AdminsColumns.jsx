@@ -1,5 +1,5 @@
 // import TableOrderButton from "@/components/tableOrderButton";
-import TableOrderButton from "@/components/ui/tableOrderButton";
+import TableOrderButton from "@/AdminSrc/components/shared/tableOrderButton";
 
 import { Button } from "@/components/ui/button";
 import {

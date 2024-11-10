@@ -1,6 +1,5 @@
-
 // import TableOrderButton from "@/components/tableOrderButton";
-import TableOrderButton from "@/components/ui/tableOrderButton";
+import TableOrderButton from "@/AdminSrc/components/shared/tableOrderButton";
 
 import { Trash2, PencilLine } from "lucide-react";
 

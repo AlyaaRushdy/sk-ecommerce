@@ -18,12 +18,12 @@ import {
   //   ColumnFiltersState,
   getFilteredRowModel,
 } from "@tanstack/react-table";
-import TablePagination from "@/components/ui/tablePagination";
+import TablePagination from "@/AdminSrc/components/tablePagination";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-function DataTable({ data, columns, tableTitle , ButtonLink , ButtonText }) {
+function DataTable({ data, columns, tableTitle, ButtonLink, ButtonText }) {
   const [sorting, setSorting] = useState([]);
   //   const [columnFilters, setColumnFilters] = useState([]);
   const [globalFilter, setGlobalFilter] = useState([]);
@@ -68,20 +68,20 @@ function DataTable({ data, columns, tableTitle , ButtonLink , ButtonText }) {
           <CardTitle className="text-lg">{tableTitle}</CardTitle>
 
           <div className="flex items-center justify-between py-6">
-            
             <Input
               placeholder="Search..."
               //   value={table.getColumn("info")?.getFilterValue() ?? ""}
               onChange={(e) => table.setGlobalFilter(String(e.target.value))}
               className="max-w-sm"
-            />  
-            {ButtonText &&           
-            <Link
+            />
+            {ButtonText && (
+              <Link
                 to={ButtonLink} // Replace with your actual create route
                 className="bg-primary text-white px-4 py-2 rounded-md shadow-md hover:bg-orange-600 transition"
               >
                 {ButtonText}
-              </Link>}
+              </Link>
+            )}
           </div>
         </CardHeader>
         <CardContent>

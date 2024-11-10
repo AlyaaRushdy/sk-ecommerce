@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ChevronsUpDown } from "lucide-react";
 import { Link } from "react-router-dom";
-import TableOrderButton from "@/components/ui/tableOrderButton";
+import TableOrderButton from "@/AdminSrc/components/shared/tableOrderButton";
 
 // function for CSS class based on the order status
 const getStatusClass = (status) => {
