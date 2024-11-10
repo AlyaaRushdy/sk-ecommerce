@@ -13,6 +13,7 @@ import NavSheet from "./NavSheet";
 import ModeToggle from "@/components/shared/modeToggle";
 import { openCart } from "@/Redux/cartSlice";
 import { Badge } from "@/components/ui/badge";
+import Cart from "./Cart";
 
 const links = [
   {
@@ -157,6 +158,7 @@ function Navbar() {
                   >
                     <ShoppingBasket />
                   </Link>
+                  <Cart />
                 </>
               </NavigationMenuLink>
             </NavigationMenuItem>
