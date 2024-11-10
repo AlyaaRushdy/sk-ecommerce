@@ -9,12 +9,14 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
+
 import storage from "redux-persist/lib/storage";
 import shopAddressSlice from "./addressSlice";
 import modeReducer from "./modeSlice";
-import userReducer from "./modeSlice";
-import cartReducer from "./userSlice";
-import authReducer from "./cartSlice";
+import userReducer from "./userSlice";
+import cartReducer from "./cartSlice";
+import authReducer from "./authSlice";
+
 // Persist configuration for user, mode, cart, and auth slices
 const userPersistConfig = {
   key: "user",
